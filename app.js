@@ -1,9 +1,9 @@
 //Book Class: Represents a Book
 class Book{
-    constructor(title,author,ibsn){
+    constructor(title,author,isbn){
         this.title = title;
         this.author = author;
-        this.ibsn = ibsn;
+        this.isbn = isbn;
     }
 }
 //UI Class: Handle UI Tasks
@@ -38,6 +38,13 @@ class UI{
         `;
         list.appendChild(row);
     }
+
+    static deleteBook(el){
+        if(el.classList.contains('delete')){
+            el.parentElement.parentElement.remove();
+        }
+    }
+
     static clearFields(){
         document.querySelector('#title').value = '';
         document.querySelector('#author').value = '';
@@ -56,6 +63,7 @@ document.querySelector('#book-form').addEventListener('submit',(e)=>{
     const title = document.querySelector('#title').value;
     const author = document.querySelector('#author').value;
     const isbn = document.querySelector('#isbn').value;
+    console.log(isbn);
     // Instiate book
     const book = new Book(title,author,isbn);
     // Add book to UI
@@ -64,3 +72,7 @@ document.querySelector('#book-form').addEventListener('submit',(e)=>{
     UI.clearFields();
 });
 //Events: Remove a Book
+document.querySelector('#book-list').addEventListener('click', (el)=>{
+    UI.deleteBook(el.target);//event propagation
+    console.log(el);
+});
